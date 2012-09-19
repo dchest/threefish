@@ -92,7 +92,7 @@ func (c *Threefish) Decrypt(dst, src []byte) {
 	decryptBlock(&c.ks, &c.ts, dst, src)
 }
 
-// EncryptBlock encrypts a single block using with the given key and tweak.
+// EncryptBlock encrypts a single block with the given key and tweak.
 func EncryptBlock(key, tweak, dst, src []byte) {
 	var ks [9]uint64
 	var ts [3]uint64
@@ -101,7 +101,7 @@ func EncryptBlock(key, tweak, dst, src []byte) {
 	encryptBlock(&ks, &ts, dst, src)
 }
 
-// DecryptBlock decrypts a single block using the given key and tweak.
+// DecryptBlock decrypts a single block with the given key and tweak.
 func DecryptBlock(key, tweak, dst, src []byte) {
 	var ks [9]uint64
 	var ts [3]uint64
