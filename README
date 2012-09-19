@@ -1,3 +1,1 @@
 Go implementation of Threefish-512 block cipher.
-
-Currenly, the implementation is simple and slow.
