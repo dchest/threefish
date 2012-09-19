@@ -46,21 +46,25 @@ func decUnmix(v *[8]uint64, i0, i1, i2, i3, i4, i5, i6, i7, r int) {
 }
 
 func encInject(v *[8]uint64, ks *[9]uint64, ts *[3]uint64, r int) {
-	for i := 0; i < 8; i++ {
-		v[i] += ks[(r+i+1)%9]
-	}
-	v[5] += ts[(r+1)%3]
-	v[6] += ts[(r+2)%3]
-	v[7] += uint64(r) + 1
+	v[0] += ks[(r+1)%9]
+	v[1] += ks[(r+2)%9]
+	v[2] += ks[(r+3)%9]
+	v[3] += ks[(r+4)%9]
+	v[4] += ks[(r+5)%9]
+	v[5] += ks[(r+6)%9] + ts[(r+1)%3]
+	v[6] += ks[(r+7)%9] + ts[(r+2)%3]
+	v[7] += ks[(r+8)%9] + uint64(r) + 1
 }
 
 func decInject(v *[8]uint64, ks *[9]uint64, ts *[3]uint64, r int) {
-	for i := 0; i < 8; i++ {
-		v[i] -= ks[(r+i+1)%9]
-	}
-	v[5] -= ts[(r+1)%3]
-	v[6] -= ts[(r+2)%3]
-	v[7] -= uint64(r) + 1
+	v[0] -= ks[(r+1)%9]
+	v[1] -= ks[(r+2)%9]
+	v[2] -= ks[(r+3)%9]
+	v[3] -= ks[(r+4)%9]
+	v[4] -= ks[(r+5)%9]
+	v[5] -= ks[(r+6)%9] + ts[(r+1)%3]
+	v[6] -= ks[(r+7)%9] + ts[(r+2)%3]
+	v[7] -= ks[(r+8)%9] + uint64(r) + 1
 }
 
 func encryptBlock(ks *[9]uint64, ts *[3]uint64, dst, src []byte) {
