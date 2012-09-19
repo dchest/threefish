@@ -54,7 +54,7 @@ func TestEncryptDecrypt(t *testing.T) {
 	out := make([]byte, BlockSize)
 	k := make([]byte, KeySize)
 	for i := range k {
-		k[i] = byte(i*2)
+		k[i] = byte(i * 2)
 	}
 	tw := make([]byte, TweakSize)
 	for i := range tw {
@@ -71,5 +71,33 @@ func TestEncryptDecrypt(t *testing.T) {
 	c.Decrypt(out, out)
 	if !bytes.Equal(out, in) {
 		t.Errorf("encryption/decryption failed")
+	}
+}
+
+func BenchmarkEncrypt(b *testing.B) {
+	v := testVectors[0]
+	c, err := NewCipher(v.k, v.t)
+	if err != nil {
+		b.Fatal("NewCipher: ", err)
+	}
+	out := make([]byte, len(v.out))
+	b.SetBytes(int64(len(out)))
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		c.Encrypt(out, v.in)
+	}
+}
+
+func BenchmarkDecrypt(b *testing.B) {
+	v := testVectors[0]
+	c, err := NewCipher(v.k, v.t)
+	if err != nil {
+		b.Fatal("NewCipher: ", err)
+	}
+	out := make([]byte, len(v.out))
+	b.SetBytes(int64(len(out)))
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		c.Decrypt(out, v.out)
 	}
 }
