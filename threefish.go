@@ -7,7 +7,6 @@ import (
 	"strconv"
 )
 
-
 const (
 	// Block size in bytes.
 	BlockSize = 64
@@ -19,6 +18,7 @@ const (
 
 const keyScheduleConst = 0x1bd11bdaa9fc1a22
 
+// Threefish is an instance of cipher using a particular key and tweak.
 type Threefish struct {
 	// Key schedule.
 	ks [9]uint64
@@ -54,6 +54,8 @@ func expandTweak(ts *[3]uint64, t []byte) {
 	}
 }
 
+// NewCipher creates and returns a new Threefish cipher, compatible with
+// cipher.Block interface. The key argument must be 64 bytes, tweak - 16 bytes.
 func NewCipher(key []byte, tweak []byte) (*Threefish, error) {
 	if len(key) != KeySize {
 		return nil, KeySizeError(len(key))
@@ -67,6 +69,7 @@ func NewCipher(key []byte, tweak []byte) (*Threefish, error) {
 	return c, nil
 }
 
+// SetTweak changes the tweak for Threefish cipher to the given value.
 func (c *Threefish) SetTweak(tweak []byte) error {
 	if len(tweak) != TweakSize {
 		return TweakSizeError(len(tweak))
@@ -85,6 +88,7 @@ func (c *Threefish) Decrypt(dst, src []byte) {
 	decryptBlock(&c.ks, &c.ts, dst, src)
 }
 
+// EncryptBlock encrypts a single block using with the given key and tweak.
 func EncryptBlock(key, tweak, dst, src []byte) {
 	var ks [9]uint64
 	var ts [3]uint64
@@ -93,6 +97,7 @@ func EncryptBlock(key, tweak, dst, src []byte) {
 	encryptBlock(&ks, &ts, dst, src)
 }
 
+// DecryptBlock decrypts a single block using the given key and tweak.
 func DecryptBlock(key, tweak, dst, src []byte) {
 	var ks [9]uint64
 	var ts [3]uint64
