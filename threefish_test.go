@@ -53,6 +53,9 @@ func TestEncryptDecrypt(t *testing.T) {
 	}
 	out := make([]byte, BlockSize)
 	k := make([]byte, KeySize)
+	for i := range k {
+		k[i] = byte(i*2)
+	}
 	tw := make([]byte, TweakSize)
 	for i := range tw {
 		tw[i] = byte(i)
