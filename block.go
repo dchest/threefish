@@ -1,7 +1,12 @@
+// Copyright 2012 Dmitry Chestnykh. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 package threefish
 
 import "encoding/binary"
 
+// Rotation constants.
 var rotK = [8][4]uint {
   { 46, 36, 19, 37 },
   { 33, 27, 14, 42 },

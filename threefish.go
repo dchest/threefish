@@ -1,3 +1,7 @@
+// Copyright 2012 Dmitry Chestnykh. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 // Package threefish implements Threefish-512 block cipher as defined in 
 // "The Skein Hash Function Family" paper version 1.3.
 package threefish

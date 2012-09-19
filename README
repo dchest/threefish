@@ -1,0 +1,3 @@
+Go implementation of Threefish-512 cipher.
+
+Currenly, the implementation is simple and slow.
