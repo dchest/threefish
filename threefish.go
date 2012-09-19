@@ -6,10 +6,7 @@
 // "The Skein Hash Function Family" paper version 1.3.
 package threefish
 
-import (
-	"encoding/binary"
-	"strconv"
-)
+import "strconv"
 
 const (
 	// Block size in bytes.
@@ -19,8 +16,6 @@ const (
 	// Tweak size in bytes.
 	TweakSize = 16
 )
-
-const keyScheduleConst = 0x1bd11bdaa9fc1a22
 
 // Threefish is an instance of cipher using a particular key and tweak.
 type Threefish struct {
@@ -40,22 +35,6 @@ type TweakSizeError int
 
 func (t TweakSizeError) Error() string {
 	return "threefish: invalid tweak size: " + strconv.Itoa(int(t))
-}
-
-func expandKey(ks *[9]uint64, k []byte) {
-	ks[8] = keyScheduleConst
-	for i := 0; i < 8; i++ {
-		ks[i] = binary.LittleEndian.Uint64(k[i*8:])
-		ks[8] ^= ks[i]
-	}
-}
-
-func expandTweak(ts *[3]uint64, t []byte) {
-	ts[2] = 0
-	for i := 0; i < 2; i++ {
-		ts[i] = binary.LittleEndian.Uint64(t[i*8:])
-		ts[2] ^= ts[i]
-	}
 }
 
 // NewCipher creates and returns a new Threefish cipher, compatible with
