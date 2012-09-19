@@ -22,27 +22,14 @@ func encryptBlock(ks *[9]uint64, ts *[3]uint64, dst, src []byte) {
 	x7 := uint64(src[56]) | uint64(src[57])<<8 | uint64(src[58])<<16 | uint64(src[59])<<24 |
 		uint64(src[60])<<32 | uint64(src[61])<<40 | uint64(src[62])<<48 | uint64(src[63])<<56
 
-	k0 := ks[0]
-	k1 := ks[1]
-	k2 := ks[2]
-	k3 := ks[3]
-	k4 := ks[4]
-	k5 := ks[5]
-	k6 := ks[6]
-	k7 := ks[7]
-	k8 := ks[8]
-	t0 := ts[0]
-	t1 := ts[1]
-	t2 := ts[2]
-
-	x0 += k0
-	x1 += k1
-	x2 += k2
-	x3 += k3
-	x4 += k4
-	x5 += k5 + t0
-	x6 += k6 + t1
-	x7 += k7
+	x0 += ks[0]
+	x1 += ks[1]
+	x2 += ks[2]
+	x3 += ks[3]
+	x4 += ks[4]
+	x5 += ks[5] + ts[0]
+	x6 += ks[6] + ts[1]
+	x7 += ks[7]
 
 	x0 += x1
 	x1 = (x1<<46 | x1>>(64-46)) ^ x0
@@ -80,14 +67,14 @@ func encryptBlock(ks *[9]uint64, ts *[3]uint64, dst, src []byte) {
 	x4 += x3
 	x3 = (x3<<56 | x3>>(64-56)) ^ x4
 
-	x0 += k1
-	x1 += k2
-	x2 += k3
-	x3 += k4
-	x4 += k5
-	x5 += k6 + t1
-	x6 += k7 + t2
-	x7 += k8 + 1
+	x0 += ks[1]
+	x1 += ks[2]
+	x2 += ks[3]
+	x3 += ks[4]
+	x4 += ks[5]
+	x5 += ks[6] + ts[1]
+	x6 += ks[7] + ts[2]
+	x7 += ks[8] + 1
 
 	x0 += x1
 	x1 = (x1<<39 | x1>>(64-39)) ^ x0
@@ -125,14 +112,14 @@ func encryptBlock(ks *[9]uint64, ts *[3]uint64, dst, src []byte) {
 	x4 += x3
 	x3 = (x3<<22 | x3>>(64-22)) ^ x4
 
-	x0 += k2
-	x1 += k3
-	x2 += k4
-	x3 += k5
-	x4 += k6
-	x5 += k7 + t2
-	x6 += k8 + t0
-	x7 += k0 + 2
+	x0 += ks[2]
+	x1 += ks[3]
+	x2 += ks[4]
+	x3 += ks[5]
+	x4 += ks[6]
+	x5 += ks[7] + ts[2]
+	x6 += ks[8] + ts[0]
+	x7 += ks[0] + 2
 
 	x0 += x1
 	x1 = (x1<<46 | x1>>(64-46)) ^ x0
@@ -170,14 +157,14 @@ func encryptBlock(ks *[9]uint64, ts *[3]uint64, dst, src []byte) {
 	x4 += x3
 	x3 = (x3<<56 | x3>>(64-56)) ^ x4
 
-	x0 += k3
-	x1 += k4
-	x2 += k5
-	x3 += k6
-	x4 += k7
-	x5 += k8 + t0
-	x6 += k0 + t1
-	x7 += k1 + 3
+	x0 += ks[3]
+	x1 += ks[4]
+	x2 += ks[5]
+	x3 += ks[6]
+	x4 += ks[7]
+	x5 += ks[8] + ts[0]
+	x6 += ks[0] + ts[1]
+	x7 += ks[1] + 3
 
 	x0 += x1
 	x1 = (x1<<39 | x1>>(64-39)) ^ x0
@@ -215,14 +202,14 @@ func encryptBlock(ks *[9]uint64, ts *[3]uint64, dst, src []byte) {
 	x4 += x3
 	x3 = (x3<<22 | x3>>(64-22)) ^ x4
 
-	x0 += k4
-	x1 += k5
-	x2 += k6
-	x3 += k7
-	x4 += k8
-	x5 += k0 + t1
-	x6 += k1 + t2
-	x7 += k2 + 4
+	x0 += ks[4]
+	x1 += ks[5]
+	x2 += ks[6]
+	x3 += ks[7]
+	x4 += ks[8]
+	x5 += ks[0] + ts[1]
+	x6 += ks[1] + ts[2]
+	x7 += ks[2] + 4
 
 	x0 += x1
 	x1 = (x1<<46 | x1>>(64-46)) ^ x0
@@ -260,14 +247,14 @@ func encryptBlock(ks *[9]uint64, ts *[3]uint64, dst, src []byte) {
 	x4 += x3
 	x3 = (x3<<56 | x3>>(64-56)) ^ x4
 
-	x0 += k5
-	x1 += k6
-	x2 += k7
-	x3 += k8
-	x4 += k0
-	x5 += k1 + t2
-	x6 += k2 + t0
-	x7 += k3 + 5
+	x0 += ks[5]
+	x1 += ks[6]
+	x2 += ks[7]
+	x3 += ks[8]
+	x4 += ks[0]
+	x5 += ks[1] + ts[2]
+	x6 += ks[2] + ts[0]
+	x7 += ks[3] + 5
 
 	x0 += x1
 	x1 = (x1<<39 | x1>>(64-39)) ^ x0
@@ -305,14 +292,14 @@ func encryptBlock(ks *[9]uint64, ts *[3]uint64, dst, src []byte) {
 	x4 += x3
 	x3 = (x3<<22 | x3>>(64-22)) ^ x4
 
-	x0 += k6
-	x1 += k7
-	x2 += k8
-	x3 += k0
-	x4 += k1
-	x5 += k2 + t0
-	x6 += k3 + t1
-	x7 += k4 + 6
+	x0 += ks[6]
+	x1 += ks[7]
+	x2 += ks[8]
+	x3 += ks[0]
+	x4 += ks[1]
+	x5 += ks[2] + ts[0]
+	x6 += ks[3] + ts[1]
+	x7 += ks[4] + 6
 
 	x0 += x1
 	x1 = (x1<<46 | x1>>(64-46)) ^ x0
@@ -350,14 +337,14 @@ func encryptBlock(ks *[9]uint64, ts *[3]uint64, dst, src []byte) {
 	x4 += x3
 	x3 = (x3<<56 | x3>>(64-56)) ^ x4
 
-	x0 += k7
-	x1 += k8
-	x2 += k0
-	x3 += k1
-	x4 += k2
-	x5 += k3 + t1
-	x6 += k4 + t2
-	x7 += k5 + 7
+	x0 += ks[7]
+	x1 += ks[8]
+	x2 += ks[0]
+	x3 += ks[1]
+	x4 += ks[2]
+	x5 += ks[3] + ts[1]
+	x6 += ks[4] + ts[2]
+	x7 += ks[5] + 7
 
 	x0 += x1
 	x1 = (x1<<39 | x1>>(64-39)) ^ x0
@@ -395,14 +382,14 @@ func encryptBlock(ks *[9]uint64, ts *[3]uint64, dst, src []byte) {
 	x4 += x3
 	x3 = (x3<<22 | x3>>(64-22)) ^ x4
 
-	x0 += k8
-	x1 += k0
-	x2 += k1
-	x3 += k2
-	x4 += k3
-	x5 += k4 + t2
-	x6 += k5 + t0
-	x7 += k6 + 8
+	x0 += ks[8]
+	x1 += ks[0]
+	x2 += ks[1]
+	x3 += ks[2]
+	x4 += ks[3]
+	x5 += ks[4] + ts[2]
+	x6 += ks[5] + ts[0]
+	x7 += ks[6] + 8
 
 	x0 += x1
 	x1 = (x1<<46 | x1>>(64-46)) ^ x0
@@ -440,14 +427,14 @@ func encryptBlock(ks *[9]uint64, ts *[3]uint64, dst, src []byte) {
 	x4 += x3
 	x3 = (x3<<56 | x3>>(64-56)) ^ x4
 
-	x0 += k0
-	x1 += k1
-	x2 += k2
-	x3 += k3
-	x4 += k4
-	x5 += k5 + t0
-	x6 += k6 + t1
-	x7 += k7 + 9
+	x0 += ks[0]
+	x1 += ks[1]
+	x2 += ks[2]
+	x3 += ks[3]
+	x4 += ks[4]
+	x5 += ks[5] + ts[0]
+	x6 += ks[6] + ts[1]
+	x7 += ks[7] + 9
 
 	x0 += x1
 	x1 = (x1<<39 | x1>>(64-39)) ^ x0
@@ -485,14 +472,14 @@ func encryptBlock(ks *[9]uint64, ts *[3]uint64, dst, src []byte) {
 	x4 += x3
 	x3 = (x3<<22 | x3>>(64-22)) ^ x4
 
-	x0 += k1
-	x1 += k2
-	x2 += k3
-	x3 += k4
-	x4 += k5
-	x5 += k6 + t1
-	x6 += k7 + t2
-	x7 += k8 + 10
+	x0 += ks[1]
+	x1 += ks[2]
+	x2 += ks[3]
+	x3 += ks[4]
+	x4 += ks[5]
+	x5 += ks[6] + ts[1]
+	x6 += ks[7] + ts[2]
+	x7 += ks[8] + 10
 
 	x0 += x1
 	x1 = (x1<<46 | x1>>(64-46)) ^ x0
@@ -530,14 +517,14 @@ func encryptBlock(ks *[9]uint64, ts *[3]uint64, dst, src []byte) {
 	x4 += x3
 	x3 = (x3<<56 | x3>>(64-56)) ^ x4
 
-	x0 += k2
-	x1 += k3
-	x2 += k4
-	x3 += k5
-	x4 += k6
-	x5 += k7 + t2
-	x6 += k8 + t0
-	x7 += k0 + 11
+	x0 += ks[2]
+	x1 += ks[3]
+	x2 += ks[4]
+	x3 += ks[5]
+	x4 += ks[6]
+	x5 += ks[7] + ts[2]
+	x6 += ks[8] + ts[0]
+	x7 += ks[0] + 11
 
 	x0 += x1
 	x1 = (x1<<39 | x1>>(64-39)) ^ x0
@@ -575,14 +562,14 @@ func encryptBlock(ks *[9]uint64, ts *[3]uint64, dst, src []byte) {
 	x4 += x3
 	x3 = (x3<<22 | x3>>(64-22)) ^ x4
 
-	x0 += k3
-	x1 += k4
-	x2 += k5
-	x3 += k6
-	x4 += k7
-	x5 += k8 + t0
-	x6 += k0 + t1
-	x7 += k1 + 12
+	x0 += ks[3]
+	x1 += ks[4]
+	x2 += ks[5]
+	x3 += ks[6]
+	x4 += ks[7]
+	x5 += ks[8] + ts[0]
+	x6 += ks[0] + ts[1]
+	x7 += ks[1] + 12
 
 	x0 += x1
 	x1 = (x1<<46 | x1>>(64-46)) ^ x0
@@ -620,14 +607,14 @@ func encryptBlock(ks *[9]uint64, ts *[3]uint64, dst, src []byte) {
 	x4 += x3
 	x3 = (x3<<56 | x3>>(64-56)) ^ x4
 
-	x0 += k4
-	x1 += k5
-	x2 += k6
-	x3 += k7
-	x4 += k8
-	x5 += k0 + t1
-	x6 += k1 + t2
-	x7 += k2 + 13
+	x0 += ks[4]
+	x1 += ks[5]
+	x2 += ks[6]
+	x3 += ks[7]
+	x4 += ks[8]
+	x5 += ks[0] + ts[1]
+	x6 += ks[1] + ts[2]
+	x7 += ks[2] + 13
 
 	x0 += x1
 	x1 = (x1<<39 | x1>>(64-39)) ^ x0
@@ -665,14 +652,14 @@ func encryptBlock(ks *[9]uint64, ts *[3]uint64, dst, src []byte) {
 	x4 += x3
 	x3 = (x3<<22 | x3>>(64-22)) ^ x4
 
-	x0 += k5
-	x1 += k6
-	x2 += k7
-	x3 += k8
-	x4 += k0
-	x5 += k1 + t2
-	x6 += k2 + t0
-	x7 += k3 + 14
+	x0 += ks[5]
+	x1 += ks[6]
+	x2 += ks[7]
+	x3 += ks[8]
+	x4 += ks[0]
+	x5 += ks[1] + ts[2]
+	x6 += ks[2] + ts[0]
+	x7 += ks[3] + 14
 
 	x0 += x1
 	x1 = (x1<<46 | x1>>(64-46)) ^ x0
@@ -710,14 +697,14 @@ func encryptBlock(ks *[9]uint64, ts *[3]uint64, dst, src []byte) {
 	x4 += x3
 	x3 = (x3<<56 | x3>>(64-56)) ^ x4
 
-	x0 += k6
-	x1 += k7
-	x2 += k8
-	x3 += k0
-	x4 += k1
-	x5 += k2 + t0
-	x6 += k3 + t1
-	x7 += k4 + 15
+	x0 += ks[6]
+	x1 += ks[7]
+	x2 += ks[8]
+	x3 += ks[0]
+	x4 += ks[1]
+	x5 += ks[2] + ts[0]
+	x6 += ks[3] + ts[1]
+	x7 += ks[4] + 15
 
 	x0 += x1
 	x1 = (x1<<39 | x1>>(64-39)) ^ x0
@@ -755,14 +742,14 @@ func encryptBlock(ks *[9]uint64, ts *[3]uint64, dst, src []byte) {
 	x4 += x3
 	x3 = (x3<<22 | x3>>(64-22)) ^ x4
 
-	x0 += k7
-	x1 += k8
-	x2 += k0
-	x3 += k1
-	x4 += k2
-	x5 += k3 + t1
-	x6 += k4 + t2
-	x7 += k5 + 16
+	x0 += ks[7]
+	x1 += ks[8]
+	x2 += ks[0]
+	x3 += ks[1]
+	x4 += ks[2]
+	x5 += ks[3] + ts[1]
+	x6 += ks[4] + ts[2]
+	x7 += ks[5] + 16
 
 	x0 += x1
 	x1 = (x1<<46 | x1>>(64-46)) ^ x0
@@ -800,14 +787,14 @@ func encryptBlock(ks *[9]uint64, ts *[3]uint64, dst, src []byte) {
 	x4 += x3
 	x3 = (x3<<56 | x3>>(64-56)) ^ x4
 
-	x0 += k8
-	x1 += k0
-	x2 += k1
-	x3 += k2
-	x4 += k3
-	x5 += k4 + t2
-	x6 += k5 + t0
-	x7 += k6 + 17
+	x0 += ks[8]
+	x1 += ks[0]
+	x2 += ks[1]
+	x3 += ks[2]
+	x4 += ks[3]
+	x5 += ks[4] + ts[2]
+	x6 += ks[5] + ts[0]
+	x7 += ks[6] + 17
 
 	x0 += x1
 	x1 = (x1<<39 | x1>>(64-39)) ^ x0
@@ -845,14 +832,14 @@ func encryptBlock(ks *[9]uint64, ts *[3]uint64, dst, src []byte) {
 	x4 += x3
 	x3 = (x3<<22 | x3>>(64-22)) ^ x4
 
-	x0 += k0
-	x1 += k1
-	x2 += k2
-	x3 += k3
-	x4 += k4
-	x5 += k5 + t0
-	x6 += k6 + t1
-	x7 += k7 + 18
+	x0 += ks[0]
+	x1 += ks[1]
+	x2 += ks[2]
+	x3 += ks[3]
+	x4 += ks[4]
+	x5 += ks[5] + ts[0]
+	x6 += ks[6] + ts[1]
+	x7 += ks[7] + 18
 
 	dst[0] = byte(x0)
 	dst[1] = byte(x0 >> 8)
