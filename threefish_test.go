@@ -11,17 +11,17 @@ import (
 )
 
 func fromHex(s string) []byte {
-        ret, err := hex.DecodeString(s)
-        if err != nil {
-                panic(err)
-        }
-        return ret
+	ret, err := hex.DecodeString(s)
+	if err != nil {
+		panic(err)
+	}
+	return ret
 }
 
 var testVectors = []struct {
-	k []byte
-	t []byte
-	in []byte
+	k   []byte
+	t   []byte
+	in  []byte
 	out []byte
 }{
 	{

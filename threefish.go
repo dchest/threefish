@@ -27,7 +27,7 @@ type Threefish struct {
 	// Key schedule.
 	ks [9]uint64
 	// Tweak schedule.
-	ts  [3]uint64
+	ts [3]uint64
 }
 
 type KeySizeError int
